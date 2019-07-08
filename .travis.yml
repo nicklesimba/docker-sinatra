@@ -2,13 +2,12 @@ sudo: required
 
 language: ruby
 
-ruby:
-  - 2.3.x
-
 services:
   - docker
 
 before_install:
+- gem install "rubygems-update:<3.0.0" --no-document
+- update_rubygems
 - docker build -t carlad/sinatra .
 - docker run -d -p 127.0.0.1:80:4567 carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
 - docker ps -a
